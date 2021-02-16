@@ -1,0 +1,6 @@
+
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'rok050600@gmail.com'
+EMAIL_HOST_PASSWORD = '87075512787r'
+EMAIL_PORT = 587
