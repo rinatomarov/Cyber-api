@@ -102,7 +102,6 @@ class VerifyEmail(views.APIView):
             return Response({'error': 'Invalid token'}, status=status.HTTP_400_BAD_REQUEST)
 
 
-
 class LoginAPIView(generics.GenericAPIView):
     serializer_class = LoginSerializer
     def post(self, request):
