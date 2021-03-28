@@ -4,4 +4,3 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = 'emailver0506@gmail.com'
 EMAIL_HOST_PASSWORD = 'Rok050600'
 EMAIL_PORT = 587
-EMAIL_PORT = 587
