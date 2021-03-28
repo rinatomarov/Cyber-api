@@ -163,10 +163,7 @@ JWT_AUTH = {
 
     'JWT_VERIFY': True,
     'JWT_VERIFY_EXPIRATION': True,
-    << << << < HEAD
     'JWT_EXPIRATION_DELTA': datetime.timedelta(seconds=6000),
-    == == == =
-    >>>>>> > 374b1364aca1bec28fc4806d5489433fff7e5dfd
     'JWT_AUTH_HEADER_PREFIX': 'Bearer',
 
 }
