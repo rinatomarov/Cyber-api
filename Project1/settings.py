@@ -71,15 +71,11 @@ REST_FRAMEWORK = {
     'PAGE_SIZE': 10,
     'NON_FIELD_ERRORS_KEY': 'error',
     'DEFAULT_AUTHENTICATION_CLASSES': ('rest_framework_jwt.authentication.JSONWebTokenAuthentication',
-<<<<<<< HEAD
 ),
 }
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': datetime.timedelta(minutes=60),
     'REFRESH_TOKEN_LIFETIME': datetime.timedelta(days=15),
-=======
-                                       ),
->>>>>>> 374b1364aca1bec28fc4806d5489433fff7e5dfd
 }
 # SIMPLE_JWT = {
 #     'ACCESS_TOKEN_LIFETIME': datetime.timedelta(days=1),
@@ -167,12 +163,8 @@ JWT_AUTH = {
 
     'JWT_VERIFY': True,
     'JWT_VERIFY_EXPIRATION': True,
-<<<<<<< HEAD
     'JWT_EXPIRATION_DELTA': datetime.timedelta(seconds=6000),
-=======
->>>>>>> 374b1364aca1bec28fc4806d5489433fff7e5dfd
     'JWT_AUTH_HEADER_PREFIX': 'Bearer',
-
 }
 
 # for need ports
