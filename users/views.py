@@ -39,6 +39,8 @@ class RegisterView(generics.GenericAPIView):
         token = RefreshToken.for_user(user).access_token
         current_site = get_current_site(request).domain
         relativeLink = reverse('email-verify')
+        absurl = 'http://' + current_site + relativeLink + "?token=" + str(token)
+        # absurl = 'http://localhost:3000' + "?token=" + str(token)
         # absurl = 'http://' + current_site + relativeLink + "?token=" + str(token)
         absurl = 'http://localhost:8080' + "?token=" + str(token)
         email_body = 'Hi ' + user.first_name + \
@@ -85,7 +87,7 @@ class VerifyEmail(views.APIView):
     def get(self, request):
         token = request.GET.get('token')
         try:
-
+            payload = jwt.decode(token, settings.SECRET_KEY)
             payload = jwt.decode(
                 jwt=token, key=settings.SECRET_KEY, algorithms=['HS256'])
             print(payload)
@@ -102,7 +104,6 @@ class VerifyEmail(views.APIView):
 
 class LoginAPIView(generics.GenericAPIView):
     serializer_class = LoginSerializer
-
     def post(self, request):
         serializer = self.serializer_class(data=request.data)
         serializer.is_valid(raise_exception=True)
