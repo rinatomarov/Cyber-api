@@ -1,4 +1,3 @@
-
 import os
 import datetime
 from pathlib import Path
@@ -28,16 +27,18 @@ SECRET_KEY = '6%d2xi+^&y8te+3_p!3d)8!v&b8+%fy@logzittn4yra)6akd0'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost:3000', 'localhost', '127.0.0.1']
+# ALLOWED_HOSTS = ['localhost:3000', 'localhost', '127.0.0.1']
 
 # For Server react and django###
 # CORS_ORIGIN_ALLOW_ALL = True
 # CORS_ALLOW_CREDENTIALS = True
 
-CORS_ORIGIN_WHITELIST = [
-    "http://localhost:3000",
-    "http://127.0.0.1:8000"
-]
+# CORS_ORIGIN_WHITELIST = [
+#     "http://localhost:3000",
+#     "http://127.0.0.1:8000",
+#     "",
+
+# ]
 
 
 AUTH_USER_MODEL = 'users.User'
@@ -70,12 +71,20 @@ REST_FRAMEWORK = {
     'PAGE_SIZE': 10,
     'NON_FIELD_ERRORS_KEY': 'error',
     'DEFAULT_AUTHENTICATION_CLASSES': ('rest_framework_jwt.authentication.JSONWebTokenAuthentication',
+<<<<<<< HEAD
 ),
 }
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': datetime.timedelta(minutes=60),
     'REFRESH_TOKEN_LIFETIME': datetime.timedelta(days=15),
+=======
+                                       ),
+>>>>>>> 374b1364aca1bec28fc4806d5489433fff7e5dfd
 }
+# SIMPLE_JWT = {
+#     'ACCESS_TOKEN_LIFETIME': datetime.timedelta(days=1),
+#     'REFRESH_TOKEN_LIFETIME': datetime.timedelta(days=1),
+# }
 
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
@@ -158,16 +167,17 @@ JWT_AUTH = {
 
     'JWT_VERIFY': True,
     'JWT_VERIFY_EXPIRATION': True,
+<<<<<<< HEAD
     'JWT_EXPIRATION_DELTA': datetime.timedelta(seconds=6000),
+=======
+>>>>>>> 374b1364aca1bec28fc4806d5489433fff7e5dfd
     'JWT_AUTH_HEADER_PREFIX': 'Bearer',
 
 }
 
 # for need ports
-# CORS_ORIGIN_ALLOW_ALL = False
-# CORS_ORIGIN_WHITELIST = [
-#     "https://example.com",
-#     "https://sub.example.com",
-#     "http://localhost:8080",
-#     "http://127.0.0.1:9000"
-# ]
+CORS_ORIGIN_ALLOW_ALL = False
+CORS_ORIGIN_WHITELIST = [
+    "http://localhost:8080",
+    "http://127.0.0.1:8000"
+]
