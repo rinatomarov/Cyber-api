@@ -86,14 +86,9 @@ class VerifyEmail(views.APIView):
         token = request.GET.get('token')
         try:
 
-
-<< << << < HEAD
-            payload = jwt.decode(token, settings.SECRET_KEY)
-== == == =
             payload = jwt.decode(
                 jwt=token, key=settings.SECRET_KEY, algorithms=['HS256'])
             print(payload)
->>>>>> > 374b1364aca1bec28fc4806d5489433fff7e5dfd
             user = User.objects.get(id=payload['user_id'])
             if not user.is_verified:
                 user.is_verified = True
@@ -103,7 +98,6 @@ class VerifyEmail(views.APIView):
             return Response({'error': 'Activation Expired'}, status=status.HTTP_400_BAD_REQUEST)
         except jwt.exceptions.DecodeError as identifier:
             return Response({'error': 'Invalid token'}, status=status.HTTP_400_BAD_REQUEST)
-
 
 
 class LoginAPIView(generics.GenericAPIView):
