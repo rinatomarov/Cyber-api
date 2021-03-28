@@ -39,10 +39,6 @@ class UserManager(BaseUserManager):
 AUTH_PROVIDERS = {'email': 'email'}
 
 class User(AbstractBaseUser, PermissionsMixin):
-    """
-    An abstract base class implementing a fully featured User model with
-    admin-compliant permissions.
-    """
     email = models.EmailField(max_length=40, unique=True)
     first_name = models.CharField(max_length=30, blank=False)
     last_name = models.CharField(max_length=30, blank=False)
@@ -54,7 +50,6 @@ class User(AbstractBaseUser, PermissionsMixin):
     auth_provider = models.CharField(
         max_length=255, blank=False,
         null=False, default=AUTH_PROVIDERS.get('email'))
-
     objects = UserManager()
 
     USERNAME_FIELD = 'email'
