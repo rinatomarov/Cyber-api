@@ -55,6 +55,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'users',
     'corsheaders',
+    'posts',
 
 ]
 SWAGGER_SETTINGS = {

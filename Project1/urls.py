@@ -9,4 +9,5 @@ from django.conf.urls import url, include
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^user/', include('users.urls')),
+    url(r'^post/', include('posts.urls')),
 ]

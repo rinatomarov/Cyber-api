@@ -51,32 +51,6 @@ class RegisterView(generics.GenericAPIView):
         Util.send_email(data)
         return Response(user_data, status=status.HTTP_201_CREATED)
 
-
-# class VerifyEmail(views.APIView):
-#     serializer_class = EmailVerificationSerializer
-#
-#     token_param_config = openapi.Parameter(
-#         'token', in_=openapi.IN_QUERY, description='Description', type=openapi.TYPE_STRING)
-#
-#     # @swagger_auto_schema(manual_parameters=[token_param_config])
-#     def get(self, request):
-#         token = request.GET['token']
-#         try:
-#             payload = jwt.decode(jwt=token, key=settings.SECRET_KEY, algorithms=['HS256'])
-#             print(payload)
-#             user = User.objects.get(id=payload['user_id'])
-#             if not user.is_verified:
-#                 user.is_verified = True
-#                 user.save()
-#             return Response({'email': 'Successfully activated'}, status=status.HTTP_200_OK)
-#         except jwt.ExpiredSignatureError as identifier:
-#             return Response({'error': 'Activation Expired'}, status=status.HTTP_400_BAD_REQUEST)
-#         except jwt.exceptions.DecodeError as identifier:
-#             return Response({'error': 'Invalid token'}, status=status.HTTP_400_BAD_REQUEST)
-#         finally:
-#             print('f')
-
-
 class VerifyEmail(views.APIView):
     serializer_class = EmailVerificationSerializer
 
@@ -190,3 +164,4 @@ class LogoutAPIView(generics.GenericAPIView):
         serializer.save()
 
         return Response(status=status.HTTP_204_NO_CONTENT)
+
