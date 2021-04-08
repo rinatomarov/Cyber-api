@@ -56,6 +56,7 @@ INSTALLED_APPS = [
     'users',
     'corsheaders',
     'posts',
+    'prediction',
 
 ]
 SWAGGER_SETTINGS = {
