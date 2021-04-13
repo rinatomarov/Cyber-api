@@ -45,6 +45,13 @@
             </Attribute>
           </value>
         </entry>
+        <entry key="/prediction/views.py">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
         <entry key="/users/models.py">
           <value>
             <Attribute>
