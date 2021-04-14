@@ -41,15 +41,15 @@ class PredictionView(APIView):
             #
             vectorize_message = vectorizer11.transform([title])
             outcome = classifer11.predict(vectorize_message)[0]
-            # predict_proba = classifer11.predict_proba(vectorize_message).tolist()
-            # pm = process_message(title)
-            # outcome = model.classify(pm)
+            predict_proba = classifer11.predict_proba(vectorize_message).tolist()
             user = User.objects.get(id=1)
             cat = Category.objects.get(id=7)
+
             if outcome:
-                post = Post.objects.create(title=title, author=user, category=cat.name)
+                post = Post.objects.create(title=title, author=user, category=cat)
                 post.save()
             return Response({
                 'result': outcome,
+                'prediction probability' : predict_proba
             }, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

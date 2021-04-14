@@ -42,7 +42,7 @@ class RegisterView(generics.GenericAPIView):
         absurl = 'http://' + current_site + relativeLink + "?token=" + str(token)
         # absurl = 'http://localhost:3000' + "?token=" + str(token)
         # absurl = 'http://' + current_site + relativeLink + "?token=" + str(token)
-        absurl = 'http://localhost:8080' + "?token=" + str(token)
+        # absurl = 'http://localhost:8080' + "?token=" + str(token)
         email_body = 'Hi ' + user.first_name + \
                      ' Use the link below to verify your email \n' + absurl
         data = {'email_body': email_body, 'to_email': user.email,
