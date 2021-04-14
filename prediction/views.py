@@ -45,12 +45,11 @@ class PredictionView(APIView):
             # pm = process_message(title)
             # outcome = model.classify(pm)
             user = User.objects.get(id=1)
-            cat = Category.objects.get(id=1)
+            cat = Category.objects.get(id=7)
             if outcome:
-                post = Post.objects.create(title=title, author=user, category=cat)
+                post = Post.objects.create(title=title, author=user, category=cat.name)
                 post.save()
             return Response({
                 'result': outcome,
             }, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-print(sklearn.__version__)
