@@ -39,10 +39,8 @@ class RegisterView(generics.GenericAPIView):
         token = RefreshToken.for_user(user).access_token
         current_site = get_current_site(request).domain
         relativeLink = reverse('email-verify')
-        absurl = 'http://' + current_site + relativeLink + "?token=" + str(token)
-        # absurl = 'http://localhost:3000' + "?token=" + str(token)
         # absurl = 'http://' + current_site + relativeLink + "?token=" + str(token)
-        # absurl = 'http://localhost:8080' + "?token=" + str(token)
+        absurl = 'http://localhost:8080' + "?token=" + str(token)
         email_body = 'Hi ' + user.first_name + \
                      ' Use the link below to verify your email \n' + absurl
         data = {'email_body': email_body, 'to_email': user.email,
@@ -102,11 +100,13 @@ class RequestPasswordResetEmail(generics.GenericAPIView):
                 'password-reset-confirm', kwargs={'uidb64': uidb64, 'token': token})
 
             redirect_url = request.data.get('redirect_url', '')
-            absurl = 'http://' + current_site + relativeLink
+            # absurl = 'http://' + current_site + relativeLink
+            absurl = 'http://localhost:8080' + current_site + relativeLink
+
             email_body = 'Hello, \n Use link below to reset your password  \n' + \
                          absurl + "?redirect_url=" + redirect_url
             data = {'email_body': email_body, 'to_email': user.email,
-                    'email_subject': 'Reset your passsword'}
+                    'email_subject': 'Reset your password'}
             Util.send_email(data)
         return Response({'success': 'We have sent you a link to reset your password'}, status=status.HTTP_200_OK)
 
