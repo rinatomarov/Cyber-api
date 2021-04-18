@@ -49,6 +49,7 @@ class RegisterView(generics.GenericAPIView):
         Util.send_email(data)
         return Response(user_data, status=status.HTTP_201_CREATED)
 
+
 class VerifyEmail(views.APIView):
     serializer_class = EmailVerificationSerializer
 
@@ -61,7 +62,7 @@ class VerifyEmail(views.APIView):
         try:
             payload = jwt.decode(token, settings.SECRET_KEY)
             payload = jwt.decode(
-                jwt=token, key=settings.SECRET_KEY, algorithms=['HS256'])
+                jwt=token,  key=settings.SECRET_KEY, algorithms=['HS256'])
             print(payload)
             user = User.objects.get(id=payload['user_id'])
             if not user.is_verified:
@@ -76,6 +77,7 @@ class VerifyEmail(views.APIView):
 
 class LoginAPIView(generics.GenericAPIView):
     serializer_class = LoginSerializer
+
     def post(self, request):
         serializer = self.serializer_class(data=request.data)
         serializer.is_valid(raise_exception=True)
@@ -101,10 +103,10 @@ class RequestPasswordResetEmail(generics.GenericAPIView):
 
             redirect_url = request.data.get('redirect_url', '')
             # absurl = 'http://' + current_site + relativeLink
-            absurl = 'http://localhost:8080' + current_site + relativeLink
+            absurl = 'http://localhost:8080?token=' + \
+                str(token) + "&uidb64="+str(uidb64)
 
-            email_body = 'Hello, \n Use link below to reset your password  \n' + \
-                         absurl + "?redirect_url=" + redirect_url
+            email_body = 'Hello, \n Use link below to reset your password  \n' + absurl
             data = {'email_body': email_body, 'to_email': user.email,
                     'email_subject': 'Reset your password'}
             Util.send_email(data)
@@ -164,4 +166,3 @@ class LogoutAPIView(generics.GenericAPIView):
         serializer.save()
 
         return Response(status=status.HTTP_204_NO_CONTENT)
-

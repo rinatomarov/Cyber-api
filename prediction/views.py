@@ -1,3 +1,12 @@
+import joblib
+from users.models import User
+from nltk.stem import SnowballStemmer
+import re
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+from nltk.stem import PorterStemmer
+from nltk.corpus import stopwords
 from django.shortcuts import render, redirect
 from rest_framework import status
 from rest_framework.response import Response
@@ -11,25 +20,12 @@ import sklearn
 
 nltk.download('punkt')
 
-from nltk.tokenize import word_tokenize
-from nltk.corpus import stopwords
-from nltk.stem import PorterStemmer
-import matplotlib.pyplot as plt
-# from wordcloud import WordCloud
-import pandas as pd
-import numpy as np
-import re
-from nltk.corpus import stopwords
-from nltk.stem import SnowballStemmer
-from users.models import User
-
-import joblib
-
 
 def load():
     with open('prediction/model.pkl', 'rb') as file:
         vectorizer, clf = pickle.load(file)
     return vectorizer, clf
+
 
 class PredictionView(APIView):
 
@@ -37,19 +33,23 @@ class PredictionView(APIView):
         serializer = DataSerializer(data=request.data)
         if serializer.is_valid():
             title = serializer.data.get('title')
+            user_id = serializer.data.get('user_id')
+            cat_id = serializer.data.get('cat_id')
             vectorizer11, classifer11 = load()
             #
             vectorize_message = vectorizer11.transform([title])
             outcome = classifer11.predict(vectorize_message)[0]
-            predict_proba = classifer11.predict_proba(vectorize_message).tolist()
-            user = User.objects.get(id=1)
-            cat = Category.objects.get(id=7)
+            predict_proba = classifer11.predict_proba(
+                vectorize_message).tolist()
+            user = User.objects.get(id=user_id)
+            cat = Category.objects.get(id=cat_id)
 
             if outcome:
-                post = Post.objects.create(title=title, author=user, category=cat)
+                post = Post.objects.create(
+                    title=title, author=user, category=cat)
                 post.save()
             return Response({
                 'result': outcome,
-                'prediction probability' : predict_proba
+                'prediction probability': predict_proba
             }, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
