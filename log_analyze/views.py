@@ -9,6 +9,11 @@ from io import BytesIO
 from django.http import HttpResponse
 import warnings
 import codecs
+from rest_framework import status
+from rest_framework.response import Response
+from rest_framework.views import APIView
+import nltk
+import pickle
 
 warnings.filterwarnings("ignore")
 import pandas as pd
@@ -103,3 +108,24 @@ class UploadViewSet(ViewSet):
         original_df['result'] = result
         original_df.to_excel('res.xlsx', index=False)
         return result
+
+
+class ReturnFile(APIView):
+    def get(self, request):
+        original_df = pd.read_excel('res.xlsx')
+        print(original_df)
+        return Response({
+            'Host': original_df['Host'],
+            'Client_ID': original_df['Client_ID'],
+            'User_Name': original_df['User_Name'],
+            'Date': original_df['Date'],
+            'Offset': original_df['Offset'],
+            'Method': original_df['Method'],
+            'Loc': original_df['Loc'],
+            'HTTPver': original_df['HTTPver'],
+            'Status_Code': original_df['Status_Code'],
+            'Size': original_df['Size'],
+            'URL_Length': original_df['URL_Length'],
+            'Parameters': original_df['Parameters'],
+            'result': original_df['result']
+        })
