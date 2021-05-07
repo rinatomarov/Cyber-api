@@ -74,7 +74,7 @@ REST_FRAMEWORK = {
     'PAGE_SIZE': 10,
     'NON_FIELD_ERRORS_KEY': 'error',
     'DEFAULT_AUTHENTICATION_CLASSES': ('rest_framework_jwt.authentication.JSONWebTokenAuthentication',
-),
+                                       ),
 
 }
 SIMPLE_JWT = {
@@ -96,7 +96,12 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+CORS_ALLOW_CREDENTIALS = True
+CORS_ORIGIN_ALLOW_ALL = True
 
+CORS_ALLOW_HEADERS = ('authorization', 'Content-Disposition')
+
+CORS_ALLOW_HEADERS = ('*')
 ROOT_URLCONF = 'Project1.urls'
 
 TEMPLATES = [
@@ -172,10 +177,5 @@ JWT_AUTH = {
 }
 
 # for need ports
-CORS_ORIGIN_ALLOW_ALL = True
-# CORS_ORIGIN_WHITELIST = [
-#     "http://localhost:8080",
-#     "http://127.0.0.1:8000"
-# ]
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
