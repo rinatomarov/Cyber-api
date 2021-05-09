@@ -33,23 +33,23 @@ class PredictionView(APIView):
         serializer = DataSerializer(data=request.data)
         if serializer.is_valid():
             title = serializer.data.get('title')
-            user_id = serializer.data.get('user_id')
-            cat_id = serializer.data.get('cat_id')
+            # user_id = serializer.data.get('user_id')
+            # cat_id = serializer.data.get('cat_id')
             vectorizer11, classifer11 = load()
             #
             vectorize_message = vectorizer11.transform([title])
             outcome = classifer11.predict(vectorize_message)[0]
             predict_proba = classifer11.predict_proba(
                 vectorize_message).tolist()
-            user = User.objects.get(id=user_id)
-            cat = Category.objects.get(id=cat_id)
+            # user = User.objects.get(id=user_id)
+            # cat = Category.objects.get(id=cat_id)
 
-            if outcome:
-                post = Post.objects.create(
-                    title=title, author=user, category=cat)
-                post.save()
+            # if outcome:
+            #     post = Post.objects.create(
+            #         title=title, author=user, category=cat)
+            #     post.save()
             return Response({
                 'result': outcome,
-                'prediction probability': predict_proba
+                'probability': predict_proba
             }, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
